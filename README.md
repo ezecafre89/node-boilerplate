@@ -1,0 +1,2 @@
+# CP+B Node Boilerplate
+
