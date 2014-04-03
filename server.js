@@ -1,5 +1,5 @@
 var express = require('express'),
-    joke = require('./routes/joke'),
+    router = require('./routes'),
     http = require('http'),
     path = require('path'),
     app = express();
@@ -37,7 +37,7 @@ app.configure(function() {
   app.set('port', process.env.PORT || 3000);
   app.use(express.logger('dev'));
 
-  app.use(express.cookieParser('your secret here'));
+  app.use(express.cookieParser('4ppl1c4t10nS3cr3t'));
   app.use(express.bodyParser());
   app.use(express.session());
   app.use(express.methodOverride());
@@ -49,16 +49,22 @@ app.configure(function() {
 });
 
 /**
- * Server routes
+ * Allowing CORS
  */
-app.get('/joke', joke.list);
-app.post('/joke', joke.save);
-app.put('/joke', joke.update);
-app.delete('/joke', joke.remove);
+app.all('*', function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+ });
+
+/**
+ * Starting Server routing
+ */
+ router.startListening(app);
 
 /**
  * Server initialization
  */
 http.createServer(app).listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on port '.green + app.get('port').toString().green);
 });

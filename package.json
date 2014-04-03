@@ -7,6 +7,9 @@
 		"start": "node server"
 	},
 	"dependencies": {
-		"express": "3.1.0"
+		"jsforce": "1.1.2",
+		"express": "3.1.0",
+		"validator": "1.5.1",
+		"colors" : "0.6.2"
 	}
 }
